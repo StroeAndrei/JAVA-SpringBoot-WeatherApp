@@ -34,39 +34,3 @@ public class WeatherController {
     }
 	
 }
-
-/**
-
-
-
-@Controller
-public class WeatherController {
-
-    @Autowired
-    private WeatherProxy weatherProxy;
-
-    @GetMapping("/weather")
-    public String weather(Model model) {
-        // Make an HTTP request to the remote weather service
-        Weather weather = weatherProxy.createWeather(44.4375, 26.125, true, Arrays.asList("temperature_2m", "relativehumidity_2m", "windspeed_10m"));
-
-        // Extract the relevant data from the response and add it to the Model object
-        model.addAttribute("temperature", weather.getCurrentWeather().getTemperature() + " °C");
-        model.addAttribute("windspeed", weather.getCurrentWeather().getWindspeed() + " km/h");
-        model.addAttribute("date", weather.getCurrentWeather().getTime());
-
-        // Return the name of the view to be rendered
-        return "weather";
-    }
-
-}
-
-
-	<h1>Weather</h1>
-	<p>Temperature: th:text="${temperature}"</p>
-	<p>Windspeed: th:text="${windspeed}"</p>
-	<p>Date: th:text="${date}"</p>
-
-
-
-**/
