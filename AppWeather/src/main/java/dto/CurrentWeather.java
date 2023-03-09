@@ -6,7 +6,7 @@ public class CurrentWeather {
 	private double temperature;
 	private double windspeed;
 	private double winddirection;
-	private double weathercode;
+	private int weathercode;
 	private LocalDateTime time;
 
 	public double getTemperature() {
@@ -33,11 +33,11 @@ public class CurrentWeather {
 		this.winddirection = winddirection;
 	}
 
-	public double getWeathercode() {
+	public int getWeathercode() {
 		return weathercode;
 	}
 
-	public void setWeathercode(double weathercode) {
+	public void setWeathercode(int weathercode) {
 		this.weathercode = weathercode;
 	}
 

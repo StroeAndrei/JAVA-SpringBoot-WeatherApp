@@ -1,31 +1,66 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<link rel="stylesheet" type="text/css" href="/css/style.css">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/bootstrap-5.3.0/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/bootstrap-icons-1.10.3/bootstrap-icons.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
 <body>
-	<h1>Vremea in Bucuresti</h1>
-	
-	<div>
-		<h3></h3>
-		<p th:text="'Temperatura: ' + ${temperature}"></p>
-		<p th:text="'Viteza vantului: ' + ${windspeed}"></p>
-		<p th:text="'Data: ' + ${date}"></p>
-	</div>
-	
-	<div>
-		<h3>Vremea pe ore</h3>
-		<ul>
-			<li th:each="index : ${#numbers.sequence(0, nextDays.temperature_2m.size() - 1)}">
-	            <span th:text="${nextDays.time.get(index)}"></span>
-	            <span th:text="${nextDays.temperature_2m.get(index)}"></span>
-	            <span th:text="${nextDays.relativehumidity_2m.get(index)}"></span>
-	            <span th:text="${nextDays.windspeed_10m.get(index)}"></span>
-   	            <span th:text="${nextDays.precipitation_probability.get(index)}"></span>
-        	</li>
-		</ul>
-	</div>
+
+	<main class="container">
+
+		<h1>Vremea in Bucuresti</h1>
+
+		<div>
+			<p th:text="'Temperatura: ' + ${temperature}"></p>
+			<p th:text="'Viteza vantului: ' + ${windspeed}"></p>
+			<p th:text="'Cod vreme: ' + ${weathercode}"></p>
+			<p th:text="'Data: ' + ${date}"></p>
+
+			<p th:text="${#strings.capitalize(#temporals.format(date, 'EEEE', new java.util.Locale('ro')))} + 
+				' ' + ${#temporals.format(date, 'HH:mm')}"></p>
+
+
+		</div>
+
+		<div>
+
+			<h3>Vremea pentru urmatoarele 7 zile pe ore</h3>
+
+			<div class="container">
+				<div class="row g-3">
+					<div class="col-md-2 card"
+						th:each="index : ${#numbers.sequence(0, nextDays.temperature_2m.size() - 1)}">
+						<div class="card-body">
+							<h5>
+								<span th:text="${nextDays.time.get(index)}"></span>
+							</h5>
+							
+							
+<div th:text="${#temporals.parse('2022-03-09', 'yyyy-MM-dd').dayOfMonth}"></div>
+							
+
+							<p class="card-text"
+								th:text="${nextDays.temperature_2m.get(index)}"></p>
+							<p class="card-text"
+								th:text="${nextDays.relativehumidity_2m.get(index)}"></p>
+							<p class="card-text"
+								th:text="${nextDays.windspeed_10m.get(index)}"></p>
+							<p class="card-text"
+								th:text="${nextDays.precipitation_probability.get(index)}"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</main>
+
+	<script type="text/javascript"
+		th:src="@{/bootstrap-5.3.0/bootstrap.bundle.min.js}"></script>
 </body>
 </html>
