@@ -1,4 +1,4 @@
-package controllers;
+package controller;
 
 import java.util.Arrays;
 import java.util.logging.Logger;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import model.Weather;
+import dto.Weather;
 import proxy.WeatherProxy;
 
 @Controller
@@ -21,7 +21,7 @@ public class WeatherController {
 		this.weatherProxy = weatherProxy;
 	}
 
-	@GetMapping("/weather")
+	@GetMapping("/")
 	public String weather(Model model) {
 		Weather weather = weatherProxy.getWeather(44.42, 26.10, true,
 				Arrays.asList("temperature_2m", "relativehumidity_2m", "windspeed_10m"));
