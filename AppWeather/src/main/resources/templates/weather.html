@@ -3,19 +3,29 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
-	<h1>Weather App</h1>
+	<h1>Vremea in Bucuresti</h1>
 	
 	<div>
-		<h3>Current Weather</h3>
-		<p th:text="'Temperature: ' + ${temperature}"></p>
-		<p th:text="'Windspeed: ' + ${windspeed}"></p>
-		<p th:text="'Date: ' + ${date}"></p>
+		<h3></h3>
+		<p th:text="'Temperatura: ' + ${temperature}"></p>
+		<p th:text="'Viteza vantului: ' + ${windspeed}"></p>
+		<p th:text="'Data: ' + ${date}"></p>
 	</div>
 	
 	<div>
-		
+		<h3>Vremea pe ore</h3>
+		<ul>
+			<li th:each="index : ${#numbers.sequence(0, nextDays.temperature_2m.size() - 1)}">
+	            <span th:text="${nextDays.time.get(index)}"></span>
+	            <span th:text="${nextDays.temperature_2m.get(index)}"></span>
+	            <span th:text="${nextDays.relativehumidity_2m.get(index)}"></span>
+	            <span th:text="${nextDays.windspeed_10m.get(index)}"></span>
+   	            <span th:text="${nextDays.precipitation_probability.get(index)}"></span>
+        	</li>
+		</ul>
 	</div>
 </body>
 </html>

@@ -7,6 +7,7 @@ public class Hourly {
 	private List<Double> temperature_2m;
 	private List<Integer> relativehumidity_2m;
 	private List<Double> windspeed_10m;
+	private List<Integer> precipitation_probability;
 
 	public List<String> getTime() {
 		return time;
@@ -40,10 +41,19 @@ public class Hourly {
 		this.windspeed_10m = windspeed_10m;
 	}
 
+	public List<Integer> getPrecipitation_probability() {
+		return precipitation_probability;
+	}
+
+	public void setPrecipitation_probability(List<Integer> precipitation_probability) {
+		this.precipitation_probability = precipitation_probability;
+	}
+
 	@Override
 	public String toString() {
 		return "Hourly [time=" + time + ", temperature_2m=" + temperature_2m + ", relativehumidity_2m="
-				+ relativehumidity_2m + ", windspeed_10m=" + windspeed_10m + "]";
+				+ relativehumidity_2m + ", windspeed_10m=" + windspeed_10m + ", precipitation_probability="
+				+ precipitation_probability + "]";
 	}
 
 }

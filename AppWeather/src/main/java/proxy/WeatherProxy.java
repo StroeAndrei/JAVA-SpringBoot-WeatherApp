@@ -16,6 +16,7 @@ public interface WeatherProxy {
 		@RequestParam("latitude") Double latitude,
 		@RequestParam("longitude") Double longitude,
 		@RequestParam("current_weather") boolean currentWeather,
-		@RequestParam("hourly") List<String> hourly
+		@RequestParam("hourly") List<String> hourly,
+		@RequestParam("timezone") String timezone
 	);
 }
