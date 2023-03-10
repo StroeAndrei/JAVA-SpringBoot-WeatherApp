@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Vremea</title>
 <link rel="stylesheet" type="text/css"
 	th:href="@{/bootstrap-5.3.0/bootstrap.min.css}">
 <link rel="stylesheet" type="text/css"
@@ -12,53 +12,130 @@
 <body>
 
 	<main class="container">
-
-		<h1>Vremea in Bucuresti</h1>
-
-		<div>
-			<p th:text="'Temperatura: ' + ${temperature}"></p>
-			<p th:text="'Viteza vantului: ' + ${windspeed}"></p>
-			<p th:text="'Cod vreme: ' + ${weathercode}"></p>
-			<p th:text="'Data: ' + ${date}"></p>
-
-			<p th:text="${#strings.capitalize(#temporals.format(date, 'EEEE', new java.util.Locale('ro')))} + 
-				' ' + ${#temporals.format(date, 'HH:mm')}"></p>
-
-
-		</div>
-
-		<div>
-
-			<h3>Vremea pentru urmatoarele 7 zile pe ore</h3>
-
-			<div class="container">
-				<div class="row g-3">
-					<div class="col-md-2 card"
-						th:each="index : ${#numbers.sequence(0, nextDays.temperature_2m.size() - 1)}">
-						<div class="card-body">
-							<h5>
-								<span th:text="${nextDays.time.get(index)}"></span>
-							</h5>
+		<div class="row">
+			
+			<div class="col-md-8 offset-md-2 mb-4 mt-4">
+				<h1>Vremea in Bucuresti</h1>
+			</div>
+			
+			<div class="col-md-4 offset-md-2 mb-4">
+				<div class="card current-weather">
+					<div class="card-body">
+						<div class="row card-title mb-3">
 							
+							<div class="col-6">
+								<p>Vremea acum</p>
+							</div>
 							
-<div th:text="${#temporals.parse('2022-03-09', 'yyyy-MM-dd').dayOfMonth}"></div>
-							
-
-							<p class="card-text"
-								th:text="${nextDays.temperature_2m.get(index)}"></p>
-							<p class="card-text"
-								th:text="${nextDays.relativehumidity_2m.get(index)}"></p>
-							<p class="card-text"
-								th:text="${nextDays.windspeed_10m.get(index)}"></p>
-							<p class="card-text"
-								th:text="${nextDays.precipitation_probability.get(index)}"></p>
+							<div class="col-6">
+								<p class="text-end" th:text="${#strings.capitalize(#temporals.format(date, 'EEEE', new java.util.Locale('ro')))} + 
+								', ora ' + ${#temporals.format(date, 'HH:mm')}"></p>
+							</div>
 						</div>
+						
+						<p>
+							<span th:if="${weathercode == 0}">Cer senin</span>
+							<span th:if="${weathercode == 1}">Aproape senin</span>
+							<span th:if="${weathercode == 2}">Partial innorat</span>
+							<span th:if="${weathercode == 3}">Acoperit cu nori</span>
+							<span th:if="${weathercode == 45}">Ceata</span>
+							<span th:if="${weathercode == 48}">Ceata cu bruma</span>
+							<span th:if="${weathercode == 51}">Burnita usoara</span>
+							<span th:if="${weathercode == 53}">Burnita moderata</span>
+							<span th:if="${weathercode == 55}">Burnita densa</span>
+							<span th:if="${weathercode == 56}">Burnita inghetata usoara</span>
+							<span th:if="${weathercode == 57}">Burnita inghetata densa</span>
+							<span th:if="${weathercode == 61}">Ploaie usoara</span>
+							<span th:if="${weathercode == 63}">Ploaie moderata</span>
+							<span th:if="${weathercode == 65}">Ploaie densa</span>
+							<span th:if="${weathercode == 66}">Ploaie inghetata usoara</span>
+							<span th:if="${weathercode == 67}">Ploaie inghetata densa</span>
+							<span th:if="${weathercode == 71}">Caderi de zapada usoare</span>
+							<span th:if="${weathercode == 73}">Caderi de zapada moderate</span>
+							<span th:if="${weathercode == 75}">Caderi de zapada puternice</span>
+							<span th:if="${weathercode == 77}">Fulgi de zapada</span>
+							<span th:if="${weathercode == 80}">Averse de ploaie usoare</span>
+							<span th:if="${weathercode == 81}">Averse de ploaie moderate</span>
+							<span th:if="${weathercode == 82}">Averse de ploaie puternice</span>
+							<span th:if="${weathercode == 85}">Averse de zapada usoare</span>
+							<span th:if="${weathercode == 86}">Averse de zapada puternice</span>
+							<span th:if="${weathercode == 95}">Furtuna usoara</span>
+							<span th:if="${weathercode == 96}">Furtunacu grindina usoara</span>
+							<span th:if="${weathercode == 99}">Furtuna cu grindina puternica</span>
+						</p>
+						
+						<p th:text="'Temperatura: ' + ${temperature} + ' ' + ${hourlyTempUnit}"></p>
+						<p th:text="'Viteza vantului: ' + ${windspeed} + ' ' + ${hourlyWindspeedUnit}"></p>
+						
+
+						
 					</div>
 				</div>
 			</div>
 
+			<div class="col-md-3 offset-md-1 mb-4">
+				<p><i class="bi bi-thermometer"></i> - Temperatura</p>
+				<p><i class="bi bi-droplet"></i> - Umiditate</p>
+				<p><i class="bi bi-wind"></i> - Viteza vantului</p>
+				<p><i class="bi bi-cloud-drizzle"></i> - Probabilitatea de precipitatii</p>
+			</div>
+	
+			<div class="col-md-8 offset-md-2 mb-4 mt-3">
+				<div class="container">
+					<div class="row g-3">
+						<div class="col-md-12">
+							<h3>Vremea pentru 7 zile pe ore</h3>
+						</div>
+					
+						<div class="col-md-12 card custom-card"
+							th:each="index : ${#numbers.sequence(0, nextDays.temperature_2m.size() - 1)}">
+							<div class="card-body row">
+								<h5 class="col-md-3 d-inline">
+									<span th:text="${#strings.capitalize(#temporals.format(nextDays.time.get(index), 'EEEE', new java.util.Locale('ro')))} + 
+									' ' + ${#temporals.format(nextDays.time.get(index), 'HH:mm')}"></span>
+								</h5>
+								
+								<p class="col-md-2 card-text">
+									<i class="bi bi-thermometer"></i>
+									<span
+									th:text="${nextDays.temperature_2m.get(index)} + ' ' + 
+									${hourlyTempUnit}"></span>
+								</p>
+									
+								<p class="col-md-2 card-text">
+									<i class="bi bi-droplet"></i>
+									<span 
+									th:text="${nextDays.relativehumidity_2m.get(index)} + ' ' +
+									${hourlyHumidityUnit}"></span>
+								</p>
+									
+								
+								<p class="col-md-2 card-text">
+									<i class="bi bi-wind"></i>
+									<span 
+									th:text="${nextDays.windspeed_10m.get(index)} + ' ' +
+									${hourlyWindspeedUnit}"></span>
+								</p>
+								
+								<p class="col-md-2 card-text">
+									<i class="bi bi-cloud-drizzle"></i>
+									<span 
+									th:text="${nextDays.precipitation_probability.get(index)} + ' ' +
+									${hourlyPrecipitationUnit}"></span>
+								</p>
+									
+							</div>
+						</div>
+					</div>
+				</div>
+	
+			</div>
 		</div>
 	</main>
+	
+	<footer class="container bg-dark">
+		<p class="text-light text-center">Copyright &copy; 2023 Andrei</p>
+	</footer>
 
 	<script type="text/javascript"
 		th:src="@{/bootstrap-5.3.0/bootstrap.bundle.min.js}"></script>

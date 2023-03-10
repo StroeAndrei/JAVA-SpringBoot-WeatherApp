@@ -1,19 +1,20 @@
 package dto;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Hourly {
-	private List<String> time;
+	private List<LocalDateTime> time;
 	private List<Double> temperature_2m;
 	private List<Integer> relativehumidity_2m;
 	private List<Double> windspeed_10m;
 	private List<Integer> precipitation_probability;
 
-	public List<String> getTime() {
+	public List<LocalDateTime> getTime() {
 		return time;
 	}
 
-	public void setTime(List<String> time) {
+	public void setTime(List<LocalDateTime> time) {
 		this.time = time;
 	}
 

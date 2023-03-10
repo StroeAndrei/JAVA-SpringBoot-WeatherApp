@@ -36,6 +36,11 @@ public class WeatherController {
 		model.addAttribute("date", weather.getCurrent_weather().getTime());
 		model.addAttribute("weathercode", weather.getCurrent_weather().getWeathercode());
 		
+		model.addAttribute("hourlyTempUnit", weather.getHourly_units().getTemperature_2m());
+		model.addAttribute("hourlyHumidityUnit", weather.getHourly_units().getRelativehumidity_2m());
+		model.addAttribute("hourlyWindspeedUnit", weather.getHourly_units().getWindspeed_10m());
+		model.addAttribute("hourlyPrecipitationUnit", weather.getHourly_units().getPrecipitation_probability());
+		
 		model.addAttribute("nextDays", weather.getHourly());
 		
 		return "weather";
