@@ -24,7 +24,7 @@ public class WeatherController {
 	@GetMapping("/")
 	public String weather(Model model) {
 		Weather weather = weatherProxy.getWeather(
-			44.42, 26.10, true,
+			44.426, 26.102, true,
 			Arrays.asList("temperature_2m", "relativehumidity_2m", "windspeed_10m", "precipitation_probability"),
 			"auto"
 		);
