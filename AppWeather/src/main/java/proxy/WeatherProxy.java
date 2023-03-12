@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import dto.Weather;
 
+/**
+ * @author Andrei
+ * OpenFeign REST Client
+ * path = name.service.url+request params
+ */
 @FeignClient(name = "weather", url = "${name.service.url}")
 public interface WeatherProxy {
 	
